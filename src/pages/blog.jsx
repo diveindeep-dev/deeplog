@@ -3,17 +3,17 @@ import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
 
-const Index = (props) => {
-  const { latestPosts } = props.data;
+const Blog = (props) => {
+  const { allPosts } = props.data;
 
-  const latestPostItem = latestPosts.edges.map((edge, i) => {
+  const postList = allPosts.edges.map((edge, i) => {
     const { frontmatter, fields } = edge.node;
     const icon = getImage(frontmatter.icon);
 
     return (
       <li key={i}>
-        <GatsbyImage image={icon} alt={frontmatter.icon.name} />
         <Link to={`/blog/${fields.slug}`}>
+          <GatsbyImage image={icon} alt={frontmatter.icon.name} />
           <div>{frontmatter.title}</div>
           <div>{frontmatter.date}</div>
         </Link>
@@ -23,21 +23,23 @@ const Index = (props) => {
 
   return (
     <Layout>
-      <ol>{latestPostItem}</ol>
+      <ol>{postList}</ol>
     </Layout>
   );
 };
 
 export const pageQuery = graphql`
   query {
-    latestPosts: allMarkdownRemark(
+    allPosts: allMarkdownRemark(
       filter: { frontmatter: { nav: { eq: "blog" } } }
       sort: { frontmatter: { date: DESC } }
-      limit: 5
     ) {
       edges {
         node {
           frontmatter {
+            category
+            date
+            nav
             tags
             title
             icon {
@@ -56,4 +58,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default Index;
+export default Blog;
