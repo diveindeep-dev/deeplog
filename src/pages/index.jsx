@@ -2,9 +2,15 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
+import Graphic from '../components/Graphic';
 import styled from 'styled-components';
 import { color, font } from '../styles/Variables';
-import { ContentContainer, flexCenter, media } from '../styles/Mixin';
+import {
+  Background,
+  ContentContainer,
+  flexCenter,
+  media,
+} from '../styles/Mixin';
 import { ListSection, PostLi } from '../styles/List';
 
 const Icon = styled(GatsbyImage)`
@@ -99,8 +105,49 @@ const Section = styled(ListSection)`
   }
 `;
 
-const Body = styled(ContentContainer)`
-  /* ... */
+const Body = styled(ContentContainer)``;
+
+const H1 = styled.h1`
+  font-size: 5rem;
+  font-family: ${font.logo};
+  z-index: 8;
+`;
+
+const FrontH1 = styled(H1)`
+  z-index: 10;
+  color: ${color.main};
+`;
+
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Cover = styled(ContentContainer)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 400px;
+  padding: 10px 60px;
+  overflow: hidden;
+
+  ${media.mobile} {
+    justify-content: center;
+  }
+`;
+
+const Back = styled(Background)`
+  background: ${({ theme }) => `
+  radial-gradient(
+    circle at 0% 10%,
+    ${theme.gradientA},
+    transparent 35%
+  ),
+  radial-gradient(
+    circle at 0% 30%,
+    ${theme.gradientB},
+    transparent 30%
+  );`};
 `;
 
 const Index = (props) => {
@@ -133,10 +180,9 @@ const Index = (props) => {
       <PinnedLI key={i}>
         <PostLink to={`/blog/${fields.slug}`}>
           <IconWrap>
-            <Icon image={icon} alt={frontmatter.icon.name} />
+            <Icon image={icon} alt={frontmatter.icon.nam || ''} />
           </IconWrap>
           <Container>
-            {/* <Category>{frontmatter.category}</Category> */}
             <Title>{frontmatter.title}</Title>
           </Container>
         </PostLink>
@@ -146,6 +192,16 @@ const Index = (props) => {
 
   return (
     <Layout>
+      <Back />
+      <Cover>
+        <Text>
+          <H1>
+            DIVE<br></br>IN
+          </H1>
+          <FrontH1>DEEP</FrontH1>
+        </Text>
+        <Graphic />
+      </Cover>
       <Body>
         <Section>
           <SubTitle>Pinned Posts</SubTitle>

@@ -3,6 +3,7 @@ import { Link, graphql } from 'gatsby';
 import _ from 'lodash';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
+import Cover from '../components/Graphic/Cover';
 import Tag from '../components/buttons/BorderLink';
 import styled from 'styled-components';
 import { ContentContainer, flexCenter, media } from '../styles/Mixin';
@@ -53,7 +54,7 @@ const Container = styled.div`
   }
 `;
 
-const LI = styled(PostLi)`
+const Li = styled(PostLi)`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.line};
@@ -93,10 +94,10 @@ const Blog = (props) => {
     });
 
     return (
-      <LI key={i}>
+      <Li key={i}>
         <PostLink to={`/blog/${fields.slug}`}>
           <IconWrap>
-            <Icon image={icon} alt={frontmatter.icon.name} />
+            <Icon image={icon} alt={frontmatter.icon.name || ''} />
           </IconWrap>
           <Container>
             <Title>{frontmatter.title}</Title>
@@ -104,12 +105,13 @@ const Blog = (props) => {
           </Container>
         </PostLink>
         <Tags>{tags}</Tags>
-      </LI>
+      </Li>
     );
   });
 
   return (
     <Layout>
+      <Cover text={'BLOG'} />
       <Body>
         <ListSection>
           <ol>{postList}</ol>
