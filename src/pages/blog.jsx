@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, graphql } from 'gatsby';
 import _ from 'lodash';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
@@ -48,6 +48,9 @@ const Title = styled.div`
 `;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 0 10px;
   ${media.mobile} {
     padding: 5px;
@@ -73,14 +76,74 @@ const PostLink = styled(Link)`
   display: flex;
 `;
 
+const PostsArea = styled(ListSection)`
+  grid-area: posts;
+  margin-bottom: 50px;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  font-family: ${font.title};
+  background-color: ${({ theme }) => theme.bg};
+`;
+
+const BoxTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-family: ${font.upper};
+`;
+
+const FilterBox = styled.div`
+  grid-area: search;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  font-size: 1.3rem;
+  color: ${({ theme }) => theme.fontSub};
+  background-color: ${({ theme }) => theme.bgSub};
+  border-radius: 5px;
+`;
+
 const Body = styled(ContentContainer)`
-  /* ... */
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 4fr 1fr;
+  grid-template-areas:
+    'posts search'
+    'posts .';
+
+  ${media.tablet} {
+    grid-template-columns: 2.5fr 1fr;
+  }
+
+  ${media.mobile} {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'search'
+      'posts';
+  }
 `;
 
 const Blog = (props) => {
   const { allPosts } = props.data;
+  const [filtered, setFiltered] = useState(allPosts.edges);
 
-  const postList = allPosts.edges.map((edge, i) => {
+  const searchPost = (keywords) => {
+    const filteredPost = allPosts.edges.filter((post) =>
+      post.node.frontmatter.title
+        .toLowerCase()
+        .includes(keywords.toLowerCase()),
+    );
+
+    setFiltered(filteredPost);
+  };
+
+  const handleChange = (event) => {
+    searchPost(event.target.value);
+  };
+
+  const postList = filtered.map((edge, i) => {
     const { frontmatter, fields } = edge.node;
     const icon = getImage(frontmatter.icon);
     const tags = frontmatter.tags.map((tag, i) => {
@@ -113,9 +176,20 @@ const Blog = (props) => {
     <Layout>
       <Cover text={'BLOG'} />
       <Body>
-        <ListSection>
+        <PostsArea>
           <ol>{postList}</ol>
-        </ListSection>
+        </PostsArea>
+        <FilterBox>
+          <BoxTitle>
+            <div>SEARCH</div>
+            <div>{`${filtered.length} / ${allPosts.totalCount}`}</div>
+          </BoxTitle>
+          <Input
+            type="text"
+            placeholder="검색어를 입력하세요."
+            onChange={handleChange}
+          />
+        </FilterBox>
       </Body>
     </Layout>
   );
@@ -147,6 +221,7 @@ export const pageQuery = graphql`
           }
         }
       }
+      totalCount
     }
   }
 `;
