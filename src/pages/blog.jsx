@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, graphql } from 'gatsby';
-import _ from 'lodash';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
 import Cover from '../components/Graphic/Cover';
 import Tag from '../components/buttons/BorderLink';
+import GridMenu from '../components/Box/GridMenu';
+import LinkGroup from '../components/buttons/LinkGroup';
 import styled from 'styled-components';
 import { ContentContainer, flexCenter, media } from '../styles/Mixin';
 import { ListSection, PostLi } from '../styles/List';
@@ -26,7 +27,7 @@ const IconWrap = styled.div`
 `;
 
 const TagLi = styled.li`
-  margin: 5px 1px;
+  margin: 2px 1px;
 `;
 
 const Tags = styled.ul`
@@ -60,10 +61,12 @@ const Container = styled.div`
 const Li = styled(PostLi)`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.line};
 
   ${media.mobile} {
     flex-direction: column;
+    align-items: baseline;
 
     ${Tags} {
       align-self: flex-end;
@@ -87,30 +90,14 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.bg};
 `;
 
-const BoxTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  font-family: ${font.upper};
-`;
-
-const FilterBox = styled.div`
-  grid-area: search;
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  font-size: 1.3rem;
-  color: ${({ theme }) => theme.fontSub};
-  background-color: ${({ theme }) => theme.bgSub};
-  border-radius: 5px;
-`;
-
 const Body = styled(ContentContainer)`
   display: grid;
   grid-gap: 15px;
   grid-template-columns: 4fr 1fr;
   grid-template-areas:
     'posts search'
+    'posts categories'
+    'posts tags'
     'posts .';
 
   ${media.tablet} {
@@ -121,7 +108,9 @@ const Body = styled(ContentContainer)`
     grid-template-columns: 1fr;
     grid-template-areas:
       'search'
-      'posts';
+      'posts'
+      'categories'
+      'tags';
   }
 `;
 
@@ -147,11 +136,9 @@ const Blog = (props) => {
     const { frontmatter, fields } = edge.node;
     const icon = getImage(frontmatter.icon);
     const tags = frontmatter.tags.map((tag, i) => {
-      const kebabTag = _.kebabCase(tag);
-
       return (
         <TagLi key={i}>
-          <Tag text={tag} path={`/tags/${kebabTag}`} />
+          <Tag text={tag} path={`tags`} />
         </TagLi>
       );
     });
@@ -179,17 +166,26 @@ const Blog = (props) => {
         <PostsArea>
           <ol>{postList}</ol>
         </PostsArea>
-        <FilterBox>
-          <BoxTitle>
-            <div>SEARCH</div>
-            <div>{`${filtered.length} / ${allPosts.totalCount}`}</div>
-          </BoxTitle>
+        <GridMenu
+          title={`search`}
+          data={`${filtered.length} / ${allPosts.totalCount}`}
+        >
           <Input
             type="text"
             placeholder="검색어를 입력하세요."
             onChange={handleChange}
           />
-        </FilterBox>
+        </GridMenu>
+        <GridMenu title={`categories`}>
+          <ListSection>
+            <LinkGroup group={allPosts.categories} type={`categories`} />
+          </ListSection>
+        </GridMenu>
+        <GridMenu title={`tags`}>
+          <ListSection>
+            <LinkGroup group={allPosts.tags} type={`tags`} />
+          </ListSection>
+        </GridMenu>
       </Body>
     </Layout>
   );
@@ -222,6 +218,14 @@ export const pageQuery = graphql`
         }
       }
       totalCount
+      tags: group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+        totalCount
+      }
+      categories: group(field: { frontmatter: { category: SELECT } }) {
+        fieldValue
+        totalCount
+      }
     }
   }
 `;
