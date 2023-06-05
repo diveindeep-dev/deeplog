@@ -3,9 +3,8 @@ import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
 import Cover from '../components/Graphic/Cover';
-import Tag from '../components/buttons/BorderLink';
 import GridMenu from '../components/Box/GridMenu';
-import LinkGroup from '../components/buttons/LinkGroup';
+import Group from '../components/buttons/Group';
 import styled from 'styled-components';
 import { ContentContainer, flexCenter, media } from '../styles/Mixin';
 import { ListSection, PostLi } from '../styles/List';
@@ -26,18 +25,6 @@ const IconWrap = styled.div`
   margin: 0 10px;
 `;
 
-const TagLi = styled.li`
-  margin: 2px 1px;
-`;
-
-const Tags = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
-  max-width: 50%;
-`;
-
 const Date = styled.div`
   color: ${color.grey};
   font-size: 0.8rem;
@@ -53,6 +40,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 10px;
+
   ${media.mobile} {
     padding: 5px;
   }
@@ -67,11 +55,6 @@ const Li = styled(PostLi)`
   ${media.mobile} {
     flex-direction: column;
     align-items: baseline;
-
-    ${Tags} {
-      align-self: flex-end;
-      max-width: 80%;
-    }
   }
 `;
 
@@ -135,13 +118,6 @@ const Blog = (props) => {
   const postList = filtered.map((edge, i) => {
     const { frontmatter, fields } = edge.node;
     const icon = getImage(frontmatter.icon);
-    const tags = frontmatter.tags.map((tag, i) => {
-      return (
-        <TagLi key={i}>
-          <Tag text={tag} path={`tags`} />
-        </TagLi>
-      );
-    });
 
     return (
       <Li key={i}>
@@ -154,7 +130,12 @@ const Blog = (props) => {
             <Date>{frontmatter.date}</Date>
           </Container>
         </PostLink>
-        <Tags>{tags}</Tags>
+        <Group
+          button={`link`}
+          group={frontmatter.tags}
+          name={`tags`}
+          ul={`post-lists`}
+        />
       </Li>
     );
   });
@@ -177,14 +158,15 @@ const Blog = (props) => {
           />
         </GridMenu>
         <GridMenu title={`categories`}>
-          <ListSection>
-            <LinkGroup group={allPosts.categories} type={`categories`} />
-          </ListSection>
+          <Group
+            button={`link`}
+            name={`categories`}
+            group={allPosts.categories}
+            data={'totalCount'}
+          />
         </GridMenu>
         <GridMenu title={`tags`}>
-          <ListSection>
-            <LinkGroup group={allPosts.tags} type={`tags`} />
-          </ListSection>
+          <Group button={`link`} name={`tags`} group={allPosts.tags} />
         </GridMenu>
       </Body>
     </Layout>
