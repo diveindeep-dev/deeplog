@@ -2,39 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'gatsby';
 import ThemeContext from '../context/ThemeContext';
 import Logo from './Logo';
+import ToggleButton from '../components/buttons/Toggle';
 import styled from 'styled-components';
-import { ContentContainer, flexCenter, media } from '../styles/Mixin';
+import { ContentContainer, media } from '../styles/Mixin';
 import { color, font } from '../styles/Variables';
-
-const Label = styled.label`
-  ${flexCenter}
-  width: 35px;
-  height: 35px;
-  margin: 0 10px;
-  color: ${({ theme }) => theme.font};
-  font-size: 1.2rem;
-  border-radius: 10px;
-  border: 1px solid ${({ theme }) => theme.font};
-  &:hover {
-    cursor: pointer;
-    color: ${color.main};
-    background-color: ${({ theme }) => theme.font};
-    border: 1px solid ${({ theme }) => theme.font};
-  }
-`;
-
-const InvisibleInput = styled.input`
-  display: none;
-  &:checked + ${Label} {
-    color: ${color.main};
-  }
-`;
 
 const ActiveLink = styled(Link)`
   display: flex;
   align-items: center;
   padding: 0 10px;
-  font-family: ${font.button};
+  font-family: ${font.upper};
+  font-size: 1.3rem;
   &:hover {
     cursor: pointer;
     color: ${color.main};
@@ -52,6 +30,7 @@ const Menu = styled.div`
 `;
 
 const Container = styled(ContentContainer)`
+  display: flex;
   align-items: center;
   justify-content: space-between;
   height: 140px;
@@ -118,13 +97,11 @@ const Header = ({ navArray, siteTitle }) => {
         <Logo siteTitle={siteTitle} />
         <Menu>
           <nav>{navList}</nav>
-          <InvisibleInput
-            type="checkbox"
-            id="switch"
-            onChange={() => dispatch({ type: 'TOGGLE_MODE' })}
-            checked={state.mode === 'dark'}
+          <ToggleButton
+            name={`switch`}
+            isChecked={state.mode === 'dark'}
+            handleToggle={() => dispatch({ type: 'TOGGLE_MODE' })}
           />
-          <Label htmlFor="switch">✦</Label>
         </Menu>
       </Container>
     </HeaderLayout>
