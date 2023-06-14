@@ -1,4 +1,5 @@
 import React from 'react';
+import ToggleButton from './Toggle';
 import BorderLink from './BorderLink';
 import styled from 'styled-components';
 import { media } from '../../styles/Mixin';
@@ -38,12 +39,23 @@ const Ul = styled.ul`
 `;
 
 const Group = (props) => {
-  const { group, button, name, data, ul } = props;
+  const { group, button, name, data, ul, handle, check } = props;
 
   const groupList = group.map((item, i) => {
     const formatted = item[data];
 
     switch (button) {
+      case 'toggle':
+        return (
+          <Li key={i}>
+            <ToggleButton
+              name={name}
+              value={item.fieldValue || item}
+              handleToggle={handle}
+              isChecked={check(item.fieldValue)}
+            />
+          </Li>
+        );
       case 'link':
         return (
           <Li key={i} className={`${name}-li`}>
