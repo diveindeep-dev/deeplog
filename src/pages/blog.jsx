@@ -175,7 +175,7 @@ const Blog = (props) => {
 
 export const pageQuery = graphql`
   query {
-    allPosts: allMarkdownRemark(
+    allPosts: allMdx(
       filter: { frontmatter: { nav: { eq: "blog" } } }
       sort: { frontmatter: { date: DESC } }
     ) {

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import _ from 'lodash';
-import Layout from '../layouts';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import Layout from '../layouts';
 import BorderLink from '../components/buttons/BorderLink';
 
-const Post = (props) => {
-  const { html, frontmatter } = props.data.markdownRemark;
-  const { title, date, tags, category, icon } = frontmatter;
+const Post = ({ children, data: { mdx } }) => {
+  const { title, date, tags, category, icon } = mdx.frontmatter;
   const kebabCategory = _.kebabCase(category);
   const iconImage = getImage(icon);
 
@@ -28,17 +27,14 @@ const Post = (props) => {
         <ul>{tagItems}</ul>
         <GatsbyImage image={iconImage} alt={icon.name} />
       </div>
-      <div>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-      </div>
+      <div>{children}</div>
     </Layout>
   );
 };
 
 export const query = graphql`
   query ($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+    mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         category
         date(formatString: "MMMM DD, YYYY")

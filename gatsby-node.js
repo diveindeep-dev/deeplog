@@ -1,17 +1,23 @@
 const path = require('path');
 const _ = require('lodash');
-const { graphql } = require('gatsby');
+const { createFilePath } = require('gatsby-source-filesystem');
 
-module.exports.onCreateNode = ({ node, actions }) => {
+exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === 'MarkdownRemark') {
-    const slug = path.basename(node.fileAbsolutePath, '.md');
+  if (node.internal.type === `Mdx`) {
+    const filePath = createFilePath({
+      node,
+      getNode,
+      trailingSlash: false,
+    });
+    const slashIndex = filePath.lastIndexOf('/');
+    const fileName = filePath.slice(slashIndex + 1);
 
     createNodeField({
       node,
       name: 'slug',
-      value: _.kebabCase(slug),
+      value: _.kebabCase(fileName),
     });
   }
 };
@@ -20,33 +26,32 @@ exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
 
   const { data } = await graphql(`
-    query {
-      allMarkdownRemark(
-        filter: { frontmatter: { nav: { in: ["blog", "note"] } } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              nav
-            }
-            fields {
-              slug
-            }
+    {
+      allMdx(filter: { frontmatter: { nav: { in: ["blog", "note"] } } }) {
+        nodes {
+          frontmatter {
+            nav
+          }
+          fields {
+            slug
+          }
+          internal {
+            contentFilePath
           }
         }
       }
     }
   `);
 
-  const edges = data.allMarkdownRemark.edges;
-  const markdownTemplate = path.resolve(`./src/templates/post.jsx`);
+  const nodes = data.allMdx.nodes;
+  const postTemplate = path.resolve(`./src/templates/post.jsx`);
 
-  edges.forEach((edge) => {
-    const nav = edge.node.frontmatter.nav;
-    const slug = edge.node.fields.slug;
+  nodes.forEach((node) => {
+    const nav = node.frontmatter.nav;
+    const slug = node.fields.slug;
 
     createPage({
-      component: markdownTemplate,
+      component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       path: `${nav}/${slug}`,
       context: { slug: slug },
     });

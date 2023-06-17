@@ -147,9 +147,9 @@ const Body = styled(ContentContainer)`
 `;
 
 const Note = (props) => {
-  const { allNotes, totalCount, tags, types, froms, levels } =
-    props.data.allMarkdownRemark;
-  const [filtered, setFiltered] = useState(allNotes);
+  const { allNotes } = props.data;
+  const { edges, totalCount, tags, types, froms, levels } = allNotes;
+  const [filtered, setFiltered] = useState(edges);
   const initialFilters = { title: [], from: [], level: [], type: [] };
   const [filters, setFilters] = useState(initialFilters);
 
@@ -161,7 +161,7 @@ const Note = (props) => {
 
   useEffect(() => {
     const filtering = () => {
-      let result = allNotes;
+      let result = edges;
 
       for (let filter in filters) {
         const words = filters[`${filter}`];
@@ -188,7 +188,7 @@ const Note = (props) => {
     };
 
     setFiltered(filtering());
-  }, [filters, allNotes]);
+  }, [filters, edges]);
 
   const handleChange = (event) => {
     setFilters({ ...filters, title: [event.target.value] });
@@ -300,11 +300,11 @@ const Note = (props) => {
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark(
+    allNotes: allMdx(
       filter: { frontmatter: { nav: { eq: "note" } } }
       sort: { frontmatter: { date: DESC } }
     ) {
-      allNotes: edges {
+      edges {
         node {
           frontmatter {
             title

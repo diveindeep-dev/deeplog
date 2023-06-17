@@ -180,7 +180,7 @@ const Index = (props) => {
       <PinnedLI key={i}>
         <PostLink to={`/blog/${fields.slug}`}>
           <IconWrap>
-            <Icon image={icon} alt={frontmatter.icon.nam || ''} />
+            <Icon image={icon} alt={frontmatter.icon.name || ''} />
           </IconWrap>
           <Container>
             <Title>{frontmatter.title}</Title>
@@ -218,7 +218,7 @@ const Index = (props) => {
 
 export const pageQuery = graphql`
   query {
-    latestPosts: allMarkdownRemark(
+    latestPosts: allMdx(
       filter: { frontmatter: { nav: { eq: "blog" } } }
       sort: { frontmatter: { date: DESC } }
       limit: 5
@@ -242,7 +242,7 @@ export const pageQuery = graphql`
       }
     }
 
-    pinnedPosts: allMarkdownRemark(
+    pinnedPosts: allMdx(
       filter: { frontmatter: { pin: { eq: true } } }
       sort: { frontmatter: { date: DESC } }
       limit: 4
