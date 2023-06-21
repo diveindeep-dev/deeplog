@@ -62,6 +62,12 @@ const HeaderLayout = styled.header`
   width: 100%;
   color: ${({ theme }) => theme.font};
   z-index: 100;
+
+  &.back {
+    &:hover {
+      background-color: ${({ theme }) => theme.bg};
+    }
+  }
 `;
 
 const Header = ({ navArray, siteTitle }) => {
@@ -92,7 +98,7 @@ const Header = ({ navArray, siteTitle }) => {
   });
 
   return (
-    <HeaderLayout>
+    <HeaderLayout className={isScrolled && 'back'}>
       <Container className={isScrolled && 'scrolled'}>
         <Logo siteTitle={siteTitle} />
         <Menu>
