@@ -27,7 +27,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
   const { data } = await graphql(`
     {
-      allMdx(filter: { frontmatter: { nav: { in: ["blog", "note"] } } }) {
+      allMdx(filter: { frontmatter: { nav: { in: ["blog", "note", "template"] } } }) {
         nodes {
           frontmatter {
             nav

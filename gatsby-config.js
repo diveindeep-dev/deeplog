@@ -1,3 +1,4 @@
+const remarkGfm = require('remark-gfm');
 const config = require('./contents/config');
 
 module.exports = {
@@ -15,6 +16,10 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [{ resolve: `gatsby-remark-prismjs` }],
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+        },
       },
     },
     {
