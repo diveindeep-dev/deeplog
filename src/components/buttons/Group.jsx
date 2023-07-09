@@ -1,6 +1,7 @@
 import React from 'react';
 import ToggleButton from './Toggle';
 import BorderLink from './BorderLink';
+import ActiveLink from './ActiveLink';
 import styled from 'styled-components';
 import { media } from '../../styles/Mixin';
 
@@ -14,6 +15,10 @@ const Li = styled.li`
   &.categories-li {
     width: 100%;
     margin: 2px 0;
+  }
+
+  &.active-li {
+    margin: 7px 3px;
   }
 `;
 
@@ -60,6 +65,16 @@ const Group = (props) => {
         return (
           <Li key={i} className={`${name}-li`}>
             <BorderLink
+              path={name}
+              text={item.fieldValue || item}
+              data={formatted}
+            />
+          </Li>
+        );
+      case 'active':
+        return (
+          <Li key={i} className={`active-li`}>
+            <ActiveLink
               path={name}
               text={item.fieldValue || item}
               data={formatted}

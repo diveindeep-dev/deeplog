@@ -3,6 +3,76 @@ import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
 import Group from '../components/buttons/Group';
+import GridMenu from '../components/Box/GridMenu';
+import GridCover from '../components/Graphic/GridCover';
+import styled from 'styled-components';
+import { ContentContainer, flexCenter, media } from '../styles/Mixin';
+import { ListSection, PostLi } from '../styles/List';
+import { color, font } from '../styles/Variables';
+
+const Icon = styled(GatsbyImage)`
+  width: 40px;
+  height: 40px;
+
+  ${media.mobile} {
+    width: 35px;
+    height: 35px;
+  }
+`;
+
+const IconWrap = styled.div`
+  ${flexCenter}
+  margin: 0 10px;
+`;
+
+const Title = styled.div`
+  font-size: 1.2rem;
+  font-family: ${font.title};
+`;
+
+const Data = styled.div`
+  color: ${color.grey};
+  font-size: 0.8rem;
+`;
+
+const Frontmatter = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PostLink = styled(Link)`
+  display: flex;
+`;
+
+const Li = styled(PostLi)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid ${({ theme }) => theme.line};
+
+  ${media.mobile} {
+    flex-direction: column;
+    align-items: baseline;
+  }
+`;
+
+const PostsArea = styled(ListSection)`
+  grid-area: posts;
+  margin-bottom: 50px;
+`;
+
+const SubTitle = styled.div`
+  font-family: ${font.title};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.fontSub};
+`;
+
+const H1 = styled.h1`
+  font-family: ${font.logo};
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.font};
+`;
 
 const Category = ({ data, pageContext }) => {
   const { allMdx, allCategories } = data;
@@ -13,34 +83,39 @@ const Category = ({ data, pageContext }) => {
     const iconImage = getImage(icon);
 
     return (
-      <li key={i}>
-        <Link to={`/${nav}/${slug}`}>
-          <GatsbyImage image={iconImage} alt={icon.name} />
-          <div>{title}</div>
-          <div>{date}</div>
-        </Link>
+      <Li key={i}>
+        <PostLink to={`/${nav}/${slug}`}>
+          <IconWrap>
+            <Icon image={iconImage} alt={icon.name} />
+          </IconWrap>
+          <Frontmatter>
+            <Title>{title}</Title>
+            <Data>{date}</Data>
+          </Frontmatter>
+        </PostLink>
         <Group button={`link`} group={tags} name={`tags`} ul={`post-lists`} />
-      </li>
+      </Li>
     );
   });
 
   return (
     <Layout>
-      <div>
-        <h1>
-          Posts in category: <span>{pageContext.category}</span>
-        </h1>
-      </div>
-      <div>{postList}</div>
-      <div>
-        <div>All Categories</div>
-        <Group
-          button={`active`}
-          group={allCategories.group}
-          name={`categories`}
-          data={`totalCount`}
-        />
-      </div>
+      <GridCover>
+        <SubTitle>Posts in category:</SubTitle>
+        <H1>{pageContext.category}</H1>
+      </GridCover>
+      <ContentContainer>
+        <PostsArea>
+          <ol>{postList}</ol>
+        </PostsArea>
+        <GridMenu title={`All Categories`}>
+          <Group
+            button={`active`}
+            group={allCategories.group}
+            name={`categories`}
+          />
+        </GridMenu>
+      </ContentContainer>
     </Layout>
   );
 };

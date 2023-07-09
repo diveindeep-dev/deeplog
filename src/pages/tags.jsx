@@ -2,17 +2,26 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../layouts';
 import Group from '../components/buttons/Group';
+import Cover from '../components/Graphic/Cover';
+import styled from 'styled-components';
+import { ContentContainer } from '../styles/Mixin';
+
+const Body = styled(ContentContainer)`
+  padding-top: 60px;
+`;
 
 const Tags = ({ data }) => {
   return (
     <Layout>
-      <h1>All Tags</h1>
-      <Group
-        button={`active`}
-        name={`tags`}
-        group={data.allMdx.group}
-        data={`totalCount`}
-      />
+      <Cover text={`All Tags`} />
+      <Body>
+        <Group
+          button={`active`}
+          name={`tags`}
+          group={data.allMdx.group}
+          data={`totalCount`}
+        />
+      </Body>
     </Layout>
   );
 };
