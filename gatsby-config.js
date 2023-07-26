@@ -6,6 +6,9 @@ module.exports = {
     siteTitle: config.siteTitle,
     author: config.author,
     nav: config.nav,
+    sitemap: config.sitemap,
+    mail: config.mail,
+    github: config.github,
   },
   plugins: [
     'gatsby-plugin-styled-components',

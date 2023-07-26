@@ -21,11 +21,39 @@ const Layout = ({ children }) => {
             name
             link
           }
+          sitemap {
+            title
+            links {
+              link
+              name
+            }
+          }
+          mail
+          github
         }
+      }
+      blogCount: allMdx(filter: { frontmatter: { nav: { eq: "blog" } } }) {
+        totalCount
+      }
+      noteCount: allMdx(filter: { frontmatter: { nav: { eq: "note" } } }) {
+        totalCount
+      }
+      categoryCount: allMdx {
+        distinct(field: {frontmatter: {category: SELECT}})
+      }
+      tagsCount: allMdx {
+        distinct(field: {frontmatter: {tags: SELECT}})
       }
     }
   `);
+
   const { siteMetadata } = metaData.site;
+  const count = {
+    blog: metaData.blogCount.totalCount,
+    note: metaData.noteCount.totalCount,
+    categories: metaData.categoryCount.distinct.length,
+    tags: metaData.tagsCount.distinct.length,
+  };
 
   return (
     <ThemeProvider theme={setTheme}>
@@ -36,7 +64,13 @@ const Layout = ({ children }) => {
           siteTitle={siteMetadata.siteTitle}
         />
         <main>{children}</main>
-        <Footer author={siteMetadata.author} />
+        <Footer
+          author={siteMetadata.author}
+          sitemap={siteMetadata.sitemap}
+          count={count}
+          mail={siteMetadata.mail}
+          github={siteMetadata.github}
+        />
       </div>
     </ThemeProvider>
   );
