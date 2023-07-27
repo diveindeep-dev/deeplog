@@ -157,6 +157,7 @@ const Div = styled.div`
   z-index: 3;
 
   ${media.mobile} {
+    max-width: 250px;
     grid-template-columns: 1fr;
     grid-template-areas:
       'title'

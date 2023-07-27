@@ -64,6 +64,7 @@ const HeaderLayout = styled.header`
   z-index: 100;
 
   &.back {
+    backdrop-filter: blur(2px);
     &:hover {
       background-color: ${({ theme }) => theme.bg};
     }
