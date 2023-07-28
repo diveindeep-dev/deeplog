@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
 import Group from '../components/buttons/Group';
+import Comments from '../components/Box/Comments';
 import styled from 'styled-components';
 import {
   ContentContainer,
@@ -76,17 +77,32 @@ const Box = styled.div`
   }
 `;
 
-const Body = styled(ContentContainer)``;
+const CommentsTitle = styled.div`
+  margin: 20px 0;
+  border-bottom: 2px solid ${({ theme }) => theme.line};
+  font-size: 1.8em;
+  font-family: ${font.title};
+  color: ${color.main};
+`;
+
+const Body = styled(ContentContainer)`
+  padding: 40px 100px;
+  ${media.mobile} {
+    padding: 20px 10px;
+  }
+`;
 
 const Frontmatter = styled(ContentContainer)`
   display: flex;
-  width: min(116ch, 100% - 2rem);
   justify-content: space-between;
+  width: min(116ch, 100% - 2rem);
+  padding: 40px 100px;
   font-family: ${font.title};
 
   ${media.mobile} {
     flex-direction: column-reverse;
     align-items: flex-start;
+    padding: 20px 10px;
 
     ${WrapIcon} {
       margin: 0;
@@ -168,6 +184,10 @@ const Post = ({ children, data: { mdx } }) => {
       </Frontmatter>
       <Body>
         <Markdown>{children}</Markdown>
+      </Body>
+      <Body>
+        <CommentsTitle>댓글</CommentsTitle>
+        <Comments />
       </Body>
     </Layout>
   );
