@@ -68,7 +68,7 @@ const Footer = styled.footer`
   z-index: 0;
 `;
 
-const FooterLayout = ({ author, sitemap, count, github, mail }) => {
+const FooterLayout = ({ author, sitemap, github, mail }) => {
   const year = new Date().getFullYear();
 
   return (
@@ -81,7 +81,7 @@ const FooterLayout = ({ author, sitemap, count, github, mail }) => {
       <PusherSection />
       <BackSection>
         <Back />
-        <Sitemap sitemap={sitemap} count={count} github={github} mail={mail} />
+        <Sitemap sitemap={sitemap} github={github} mail={mail} />
       </BackSection>
     </Footer>
   );

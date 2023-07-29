@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 import Header from './Header';
 import Footer from './Footer';
 import ThemeContext from '../context/ThemeContext';
@@ -10,50 +10,7 @@ import { darkTheme, lightTheme } from '../styles/Theme';
 const Layout = ({ children }) => {
   const { state } = useContext(ThemeContext);
   const setTheme = state.mode === 'light' ? lightTheme : darkTheme;
-
-  const metaData = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          siteTitle
-          author
-          nav {
-            name
-            link
-          }
-          sitemap {
-            title
-            links {
-              link
-              name
-            }
-          }
-          mail
-          github
-        }
-      }
-      blogCount: allMdx(filter: { frontmatter: { nav: { eq: "blog" } } }) {
-        totalCount
-      }
-      noteCount: allMdx(filter: { frontmatter: { nav: { eq: "note" } } }) {
-        totalCount
-      }
-      categoryCount: allMdx {
-        distinct(field: {frontmatter: {category: SELECT}})
-      }
-      tagsCount: allMdx {
-        distinct(field: {frontmatter: {tags: SELECT}})
-      }
-    }
-  `);
-
-  const { siteMetadata } = metaData.site;
-  const count = {
-    blog: metaData.blogCount.totalCount,
-    note: metaData.noteCount.totalCount,
-    categories: metaData.categoryCount.distinct.length,
-    tags: metaData.tagsCount.distinct.length,
-  };
+  const { siteMetadata } = useSiteMetadata();
 
   return (
     <ThemeProvider theme={setTheme}>
@@ -67,7 +24,6 @@ const Layout = ({ children }) => {
         <Footer
           author={siteMetadata.author}
           sitemap={siteMetadata.sitemap}
-          count={count}
           mail={siteMetadata.mail}
           github={siteMetadata.github}
         />

@@ -4,11 +4,14 @@ const config = require('./contents/config');
 module.exports = {
   siteMetadata: {
     siteTitle: config.siteTitle,
+    siteDescription: config.siteDescription,
     author: config.author,
     nav: config.nav,
     sitemap: config.sitemap,
     mail: config.mail,
     github: config.github,
+    siteUrl: config.siteUrl,
+    siteLogo: config.siteLogo,
   },
   plugins: [
     'gatsby-plugin-styled-components',

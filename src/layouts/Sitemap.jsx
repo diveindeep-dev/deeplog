@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 import CopyButton from '../components/buttons/Copy';
 import { BiLinkExternal, BiSolidCopy } from 'react-icons/bi';
 import styled from 'styled-components';
@@ -166,7 +167,8 @@ const Div = styled.div`
   }
 `;
 
-const Sitemap = ({ sitemap, count, github, mail }) => {
+const Sitemap = ({ sitemap, github, mail }) => {
+  const { count } = useSiteMetadata();
   const postTotal = count.blog + count.note;
   const sites = sitemap.map((site, i) => {
     const links = site.links.map((site, i) => {
