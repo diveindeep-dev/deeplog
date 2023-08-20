@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
 import Group from '../components/buttons/Group';
 import Comments from '../components/Box/Comments';
+import Seo from '../layouts/SEO';
 import styled from 'styled-components';
 import {
   ContentContainer,
@@ -149,6 +150,7 @@ const Post = ({ children, data: { mdx } }) => {
         </div>
       );
       break;
+
     case 'blog':
       frontmatterByNav = (
         <div>
@@ -169,7 +171,7 @@ const Post = ({ children, data: { mdx } }) => {
       break;
 
     default:
-      frontmatterByNav = <div></div>;
+      frontmatterByNav = <div />;
   }
 
   return (
@@ -193,6 +195,21 @@ const Post = ({ children, data: { mdx } }) => {
   );
 };
 
+export const Head = (props) => {
+  const { location, data } = props;
+  const { excerpt, frontmatter } = data.mdx;
+  const seo = {
+    description: excerpt,
+    path: `${location.pathname}`,
+    image:
+      frontmatter.icon &&
+      frontmatter.icon.childImageSharp.gatsbyImageData.images.fallback.src,
+    isStructuredData: `blog`,
+  };
+
+  return <Seo pageTitle={frontmatter.title} pageSEO={seo} />;
+};
+
 export const query = graphql`
   query ($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
@@ -212,6 +229,7 @@ export const query = graphql`
         type
         from
       }
+      excerpt
     }
   }
 `;

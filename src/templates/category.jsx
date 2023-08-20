@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { ContentContainer, flexCenter, media } from '../styles/Mixin';
 import { ListSection, PostLi } from '../styles/List';
 import { color, font } from '../styles/Variables';
+import Seo from '../layouts/SEO';
 
 const Icon = styled(GatsbyImage)`
   width: 40px;
@@ -118,6 +119,16 @@ const Category = ({ data, pageContext }) => {
       </ContentContainer>
     </Layout>
   );
+};
+
+export const Head = (props) => {
+  const { location, pageContext } = props;
+  const seo = {
+    description: `${pageContext.category} 카테고리 포스트`,
+    path: `${location.pathname}`,
+  };
+
+  return <Seo pageTitle={`${pageContext.category}`} pageSEO={seo} />;
 };
 
 export const query = graphql`

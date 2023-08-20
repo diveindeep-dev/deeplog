@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../layouts';
+import Seo from '../layouts/SEO';
 import styled from 'styled-components';
 import { ContentContainer } from '../styles/Mixin';
 import { font } from '../styles/Variables';
@@ -30,5 +31,7 @@ const NotFound = () => {
     </Layout>
   );
 };
+
+export const Head = () => <Seo pageTitle={`404`} />;
 
 export default NotFound;

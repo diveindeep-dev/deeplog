@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
+import Seo from '../layouts/SEO';
+import description from '../../contents/data/pageText';
 import Cover from '../components/Graphic/Cover';
 import GridMenu from '../components/Box/GridMenu';
 import Group from '../components/buttons/Group';
@@ -171,6 +173,15 @@ const Blog = (props) => {
       </Body>
     </Layout>
   );
+};
+
+export const Head = (props) => {
+  const seo = {
+    description: description.blog,
+    path: `${props.location.pathname}`,
+  };
+
+  return <Seo pageTitle={`BLOG`} pageSEO={seo} />;
 };
 
 export const pageQuery = graphql`

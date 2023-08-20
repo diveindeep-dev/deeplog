@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, graphql } from 'gatsby';
 import Layout from '../layouts';
+import Seo from '../layouts/SEO';
+import description from '../../contents/data/pageText';
 import Cover from '../components/Graphic/Cover';
 import BorderLink from '../components/buttons/BorderLink';
 import ToggleButton from '../components/buttons/Toggle';
@@ -296,6 +298,15 @@ const Note = (props) => {
       </Body>
     </Layout>
   );
+};
+
+export const Head = (props) => {
+  const seo = {
+    description: description.note,
+    path: `${props.location.pathname}`,
+  };
+
+  return <Seo pageTitle={`NOTE`} pageSEO={seo} />;
 };
 
 export const pageQuery = graphql`

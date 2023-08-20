@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from '../layouts';
+import Seo from '../layouts/SEO';
 import Graphic from '../components/Graphic';
 import styled from 'styled-components';
 import { color, font } from '../styles/Variables';
@@ -215,6 +216,8 @@ const Index = (props) => {
     </Layout>
   );
 };
+
+export const Head = () => <Seo pageTitle={`INDEX`} />;
 
 export const pageQuery = graphql`
   query {
