@@ -106,8 +106,8 @@ const Header = ({ navArray, siteTitle }) => {
           <nav>{navList}</nav>
           <ToggleButton
             name={`switch`}
-            isChecked={state.mode === 'dark'}
-            handleToggle={() => dispatch({ type: 'TOGGLE_MODE' })}
+            isChecked={state.theme === 'dark'}
+            handleToggle={() => dispatch({ type: 'TOGGLE_THEME' })}
           />
         </Menu>
       </Container>

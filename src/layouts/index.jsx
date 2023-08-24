@@ -9,7 +9,7 @@ import { darkTheme, lightTheme } from '../styles/Theme';
 
 const Layout = ({ children }) => {
   const { state } = useContext(ThemeContext);
-  const setTheme = state.mode === 'light' ? lightTheme : darkTheme;
+  const setTheme = state.theme === 'light' ? lightTheme : darkTheme;
   const { siteMetadata } = useSiteMetadata();
 
   return (

@@ -1,9 +1,9 @@
 import React, { createContext } from 'react';
 import GlobalState from './GlobalState';
 
-const ThemeContext = createContext({ mode: 'light' });
+const ThemeContext = createContext({ theme: 'light' });
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeContextProvider = ({ children }) => {
   return (
     <ThemeContext.Provider value={GlobalState()}>
       {children}
