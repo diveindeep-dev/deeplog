@@ -28,17 +28,17 @@ const Tags = styled.ul`
 const Input = styled.input`
   padding: 10px;
   font-family: ${font.title};
-  background-color: ${({ theme }) => theme.bg};
+  background-color: var(--bg);
 `;
 
 const ResetButton = styled.button`
   align-self: flex-end;
-  color: ${({ theme }) => theme.fontSub};
+  color: var(--fontSub);
   font-size: 1rem;
   font-family: ${font.upper};
 
   &:hover {
-    color: ${({ theme }) => theme.font};
+    color: var(--font);
   }
 `;
 
@@ -46,7 +46,7 @@ const FilterTitle = styled.div`
   display: flex;
   font-size: 1.1rem;
   font-family: ${font.upper};
-  color: ${({ theme }) => theme.fontSub};
+  color: var(--fontSub);
 `;
 
 const FilterBox = styled(ListSection)`
@@ -61,8 +61,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 5px;
-  border-bottom: 1px solid ${({ theme }) => theme.line};
-  color: ${({ theme }) => theme.fontSub};
+  border-bottom: 1px solid var(--line);
+  color: var(--fontSub);
   font-size: 0.75rem;
 `;
 
@@ -82,13 +82,13 @@ const NoteLi = styled.li`
   justify-content: space-between;
   padding: 20px;
   height: 230px;
-  border: 1px solid ${({ theme }) => theme.bgSub};
+  border: 1px solid var(--bgSub);
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.bgSub};
+  background-color: var(--bgSub);
   font-family: ${font.title};
 
   &:hover {
-    border: 1px solid ${({ theme }) => theme.line};
+    border: 1px solid var(--line);
   }
 
   ${media.mobile} {

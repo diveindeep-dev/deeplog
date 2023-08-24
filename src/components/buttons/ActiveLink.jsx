@@ -7,7 +7,7 @@ import { color, font } from '../../styles/Variables';
 const LinkButton = styled(Link)`
   padding: 4px 10px;
   font-family: ${font.title};
-  border: 1px solid ${({ theme }) => theme.line};
+  border: 1px solid var(--line);
   border-radius: 5px;
   font-size: 0.85rem;
 
@@ -19,7 +19,7 @@ const LinkButton = styled(Link)`
 
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.bgSub};
+    background-color: var(--bgSub);
     border: 1px solid ${color.main};
   }
 

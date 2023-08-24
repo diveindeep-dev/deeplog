@@ -8,7 +8,8 @@ const FrontSection = styled.section`
   position: relative;
   padding: 130px 0;
   width: 100%;
-  background-color: ${({ theme }) => theme.bg};
+  background-color: var(--bg);
+  color: var(--font);
   z-index: 1;
 
   p {
@@ -48,17 +49,12 @@ const BackSection = styled.section`
 `;
 
 const Back = styled(Background)`
-  background: ${({ theme }) => `
-  radial-gradient(
-    circle at 100% 100%,
-    ${theme.gradientA},
-    transparent 75%
-  ),
-  radial-gradient(
-    circle at 0% 100%,
-    ${theme.gradientB},
-    transparent 40%
-  );`};
+  background: radial-gradient(
+      circle at 100% 100%,
+      var(--gradientA),
+      transparent 75%
+    ),
+    radial-gradient(circle at 0% 100%, var(--gradientB), transparent 40%);
 `;
 
 const Footer = styled.footer`

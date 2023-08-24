@@ -52,7 +52,7 @@ const Li = styled(PostLi)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.line};
+  border-bottom: 1px solid var(--line);
 
   ${media.mobile} {
     flex-direction: column;
@@ -72,7 +72,7 @@ const PostsArea = styled(ListSection)`
 const Input = styled.input`
   padding: 10px;
   font-family: ${font.title};
-  background-color: ${({ theme }) => theme.bg};
+  background-color: var(--bg);
 `;
 
 const Body = styled(ContentContainer)`

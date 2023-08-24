@@ -28,9 +28,8 @@ const OvalColor = styled(Oval)`
   position: absolute;
   bottom: -10px;
   left: 15px;
-  background-color: ${({ theme }) => theme.bg};
-  background-image: ${({ theme }) =>
-    `linear-gradient(${theme.gradientA}, transparent, ${theme.gradientB}), url(https://grainy-gradients.vercel.app/noise.svg)`};
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--gradientA), transparent, var(--gradientB)), url(https://grainy-gradients.vercel.app/noise.svg);
   z-index: 7;
 `;
 

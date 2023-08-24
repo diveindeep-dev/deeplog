@@ -16,7 +16,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   font-family: ${font.upper};
-  color: ${({ theme }) => theme.fontSub};
+  color: var(--fontSub);
 `;
 
 const Div = styled.div`
@@ -24,7 +24,7 @@ const Div = styled.div`
   flex-direction: column;
   padding: 15px;
   grid-area: ${({ area }) => area};
-  background-color: ${({ theme }) => theme.bgSub};
+  background-color: var(--bgSub);
   border-radius: 5px;
 `;
 

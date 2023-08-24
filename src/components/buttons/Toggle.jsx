@@ -8,15 +8,15 @@ const Switch = styled.label`
   width: 35px;
   height: 35px;
   margin: 0 10px;
-  color: ${({ theme }) => theme.font};
+  color: var(--font);
   font-size: 1.2rem;
   border-radius: 10px;
-  border: 1px solid ${({ theme }) => theme.font};
+  border: 1px solid var(--font);
   &:hover {
     cursor: pointer;
     color: ${color.main};
-    background-color: ${({ theme }) => theme.font};
-    border: 1px solid ${({ theme }) => theme.font};
+    background-color: var(--font);
+    border: 1px solid var(--font);
   }
 `;
 
@@ -36,7 +36,7 @@ const InvisibleInput = styled.input`
   }
 
   &:checked + ${Filter} {
-    color: ${({ theme }) => theme.bgSub};
+    color: var(--bgSub);
     border: 1px solid ${({ bg }) => color.button[bg]};
     background-color: ${({ bg }) => color.button[bg]};
   }

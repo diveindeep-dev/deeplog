@@ -60,13 +60,13 @@ const HeaderLayout = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  color: ${({ theme }) => theme.font};
+  color: var(--font);
   z-index: 100;
 
   &.back {
     backdrop-filter: blur(2px);
     &:hover {
-      background-color: ${({ theme }) => theme.bg};
+      background-color: var(--bg);
     }
   }
 `;

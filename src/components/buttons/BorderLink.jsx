@@ -7,7 +7,7 @@ import { color, font } from '../../styles/Variables';
 const TagStyle = css`
   padding: 3px 10px;
   font-size: 0.7rem;
-  background-color: ${(props) => props.theme.bg};
+  background-color: var(--bg);
   border-radius: 5px;
 `;
 
@@ -22,9 +22,9 @@ const CategoryStyle = css`
 
 const LinkButton = styled(Link)`
   padding: 3px 10px;
-  color: ${({ theme }) => theme.fontSub};
+  color: var(--fontSub);
   font-family: ${font.title};
-  border: 1px solid ${({ theme }) => theme.line};
+  border: 1px solid var(--line);
   border-radius: 3px;
 
   ${({ type }) => type === 'tags' && TagStyle};
@@ -32,8 +32,8 @@ const LinkButton = styled(Link)`
 
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.font};
-    background-color: ${({ theme }) => theme.bgSub};
+    color: var(--font);
+    background-color: var(--bgSub);
     border: 1px solid ${color.main};
   }
 `;

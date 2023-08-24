@@ -47,11 +47,11 @@ const PostLink = styled(Link)`
 
 const PinnedLI = styled(PostLi)`
   display: flex;
-  background-color: ${({ theme }) => theme.bgSub};
+  background-color: var(--bgSub);
   border-radius: 5px;
-  border: 1px solid ${({ theme }) => theme.bgSub};
+  border: 1px solid var(--bgSub);
   &:hover {
-    border: 1px solid ${({ theme }) => theme.line};
+    border: 1px solid var(--line);
   }
 
   ${PostLink} {
@@ -85,7 +85,7 @@ const PinnedOL = styled.ol`
 
 const LatestLI = styled(PostLi)`
   margin-bottom: 5px;
-  border: 1px solid ${({ theme }) => theme.line};
+  border: 1px solid var(--line);
   border-radius: 5px;
 `;
 
@@ -138,17 +138,12 @@ const Cover = styled(ContentContainer)`
 `;
 
 const Back = styled(Background)`
-  background: ${({ theme }) => `
-  radial-gradient(
-    circle at 0% 10%,
-    ${theme.gradientA},
-    transparent 35%
-  ),
-  radial-gradient(
-    circle at 0% 30%,
-    ${theme.gradientB},
-    transparent 30%
-  );`};
+  background: radial-gradient(
+      circle at 0% 10%,
+      var(--gradientA),
+      transparent 35%
+    ),
+    radial-gradient(circle at 0% 30%, var(--gradientB), transparent 30%);
 `;
 
 const Index = (props) => {

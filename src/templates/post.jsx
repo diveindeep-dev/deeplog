@@ -27,20 +27,20 @@ const WrapIcon = styled.div`
 
 const Category = styled(Link)`
   ${smallBorder}
-  color: ${({ theme }) => theme.font};
-  background-color: ${({ theme }) => theme.line};
-  border: 1px solid ${({ theme }) => theme.line};
+  color: var(--font);
+  background-color: var(--line);
+  border: 1px solid var(--line);
 
   &:hover {
-    color: ${({ theme }) => theme.font};
-    border: 1px solid ${({ theme }) => theme.font};
+    color: var(--font);
+    border: 1px solid var(--font);
   }
 `;
 
 const Date = styled.div`
   margin: 0 5px;
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.fontSub};
+  color: var(--fontSub);
 `;
 
 const Title = styled.div`
@@ -54,15 +54,15 @@ const Title = styled.div`
 
 const From = styled.div`
   ${smallBorder}
-  color: ${({ theme }) => theme.bg};
-  background-color: ${({ theme }) => theme.line};
-  border: 1px solid ${({ theme }) => theme.line};
+  color: var(--bg);
+  background-color: var(--line);
+  border: 1px solid var(--line);
 `;
 
 const Level = styled.div`
   ${smallBorder}
   margin: 0 4px;
-  color: ${({ theme }) => theme.bg};
+  color: var(--bg);
   background-color: ${({ bg }) => color.button[bg]};
   border: 1px solid ${({ bg }) => color.button[bg]};
   opacity: 35%;
@@ -80,7 +80,7 @@ const Box = styled.div`
 
 const CommentsTitle = styled.div`
   margin: 20px 0;
-  border-bottom: 2px solid ${({ theme }) => theme.line};
+  border-bottom: 2px solid var(--line);
   font-size: 1.8em;
   font-family: ${font.title};
   color: ${color.main};
