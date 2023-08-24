@@ -2,12 +2,10 @@ import { useReducer } from 'react';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'TOGGLE_MODE':
-      const toggled = state.mode === 'light' ? 'dark' : 'light';
-      localStorage.setItem('mode', toggled);
-      return {
-        mode: toggled,
-      };
+    case 'TOGGLE_THEME':
+      const toggled = window.__theme === 'light' ? 'dark' : 'light';
+      window.__setPreferredTheme(toggled);
+      return { theme: toggled };
 
     default: {
       return state;
@@ -16,9 +14,17 @@ const reducer = (state, action) => {
 };
 
 const GlobalState = () => {
-  const [state, dispatch] = useReducer(reducer, {
-    mode: localStorage.getItem('mode') ? localStorage.getItem('mode') : 'light',
-  });
+  const isWindow = () => {
+    if (typeof window !== 'undefined') {
+      return {
+        theme: window.__theme,
+      };
+    } else {
+      return { theme: 'light' };
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, isWindow());
 
   return { state, dispatch };
 };
