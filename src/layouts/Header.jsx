@@ -3,9 +3,11 @@ import { Link } from 'gatsby';
 import ThemeContext from '../context/ThemeContext';
 import Logo from './Logo';
 import ToggleButton from '../components/buttons/Toggle';
+import { RxExternalLink } from 'react-icons/rx';
 import styled from 'styled-components';
 import { ContentContainer, media } from '../styles/Mixin';
 import { color, font } from '../styles/Variables';
+import config from '../../contents/config';
 
 const ActiveLink = styled(Link)`
   display: flex;
@@ -103,7 +105,12 @@ const Header = ({ navArray, siteTitle }) => {
       <Container className={isScrolled && 'scrolled'}>
         <Logo siteTitle={siteTitle} />
         <Menu>
-          <nav>{navList}</nav>
+          <nav>
+            {navList}
+            <ActiveLink to={`${config.portfolio}`} target="_blank">
+              Projects <RxExternalLink />
+            </ActiveLink>
+          </nav>
           <ToggleButton
             name={`switch`}
             isChecked={state.theme === 'dark'}
