@@ -28,6 +28,17 @@ const Menu = styled.div`
   display: flex;
   nav {
     display: flex;
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-family: ${font.upper};
+      font-size: 1.3rem;
+      &:hover {
+        cursor: pointer;
+        color: ${color.main};
+      }
+    }
   }
 `;
 
@@ -107,9 +118,13 @@ const Header = ({ navArray, siteTitle }) => {
         <Menu>
           <nav>
             {navList}
-            <ActiveLink to={`${config.portfolio}`} target="_blank">
+            <a
+              href={config.portfolio}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               Projects <RxExternalLink />
-            </ActiveLink>
+            </a>
           </nav>
           <ToggleButton
             name={`switch`}
