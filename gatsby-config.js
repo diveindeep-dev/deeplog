@@ -12,6 +12,7 @@ module.exports = {
     github: config.github,
     siteUrl: config.siteUrl,
     siteLogo: config.siteLogo,
+    siteOg: config.siteOg,
   },
   plugins: [
     'gatsby-plugin-styled-components',

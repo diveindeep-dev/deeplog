@@ -5,12 +5,12 @@ import urlJoin from 'url-join';
 const Seo = (props) => {
   const { pageTitle, pageSEO } = props;
   const { siteMetadata } = useSiteMetadata();
-  const { siteTitle, siteUrl, siteDescription, siteLogo } = siteMetadata;
+  const { siteTitle, siteUrl, siteDescription, siteLogo, siteOg } = siteMetadata;
 
   let title = pageTitle ? `${pageTitle} | ${siteTitle}` : `${siteTitle}`;
   let description = siteDescription;
   let url = siteUrl;
-  let image = urlJoin(siteUrl, siteLogo);
+  let image = urlJoin(siteUrl, siteOg);
 
   const jasonLd = [
     {
@@ -85,11 +85,11 @@ const Seo = (props) => {
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       <meta name="msapplication-TileColor" content="#2b5797" />
       <meta name="theme-color" content="#ffffff" />
-      {/* <meta property="og:title" content={title} />
+      <meta property="og:title" content={title} />
       <meta property="og:type" content="website" />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={image} /> */}
+      <meta property="og:image" content={image} />
     </>
   );
 };

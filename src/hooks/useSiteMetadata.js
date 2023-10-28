@@ -24,6 +24,7 @@ const useSiteMetadata = () => {
             github
             siteUrl
             siteLogo
+            siteOg
           }
         }
         blogCount: allMdx(filter: { frontmatter: { nav: { eq: "blog" } } }) {
