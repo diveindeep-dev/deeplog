@@ -159,9 +159,11 @@ const Post = ({ children, data: { mdx } }) => {
           </Title>
           <Box>
             <div>
-              <Category to={`/categories/${kebabCategory}`}>
-                {category.toUpperCase()}
-              </Category>
+              {category && (
+                <Category to={`/categories/${kebabCategory}`}>
+                  {category.toUpperCase()}
+                </Category>
+              )}
               <Date>{date}</Date>
             </div>
             <Group button={`link`} group={tags} name={`tags`} />
