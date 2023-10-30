@@ -23,7 +23,16 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: [`.mdx`, `.md`],
-        gatsbyRemarkPlugins: [{ resolve: `gatsby-remark-prismjs` }],
+        gatsbyRemarkPlugins: [
+          { resolve: `gatsby-remark-prismjs` },
+          { resolve: 'gatsby-remark-copy-linked-files' },
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 700,
+            },
+          },
+        ],
         mdxOptions: {
           remarkPlugins: [remarkGfm],
         },
