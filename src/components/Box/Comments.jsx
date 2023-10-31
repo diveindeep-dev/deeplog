@@ -1,10 +1,10 @@
-import React, { createRef, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import config from '../../../contents/config';
 import ThemeContext from '../../context/ThemeContext';
 
 const Comments = () => {
   const { state } = useContext(ThemeContext);
-  const commentRef = createRef();
+  const commentRef = useRef(null);
   const currentTheme = state.theme === 'light' ? 'github-light' : 'photon-dark';
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const Comments = () => {
     commentRef.current.appendChild(utterances);
   }, [commentRef, currentTheme]);
 
-  return <div ref={commentRef}></div>;
+  return <div ref={commentRef} />;
 };
 
 export default Comments;
